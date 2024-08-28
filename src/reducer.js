@@ -1,17 +1,18 @@
 // src/reducer.js
 
 import {
-  ADD_DIGIT,
-  ADD_OPERATOR,
-  SET_DECIMAL,
-  CALCULATE,
-  CLEAR,
-} from './actions';
-const initialState = {
-  display: '0',
-  expression: '',
-};
-
+    ADD_DIGIT,
+    ADD_OPERATOR,
+    SET_DECIMAL,
+    CALCULATE,
+    CLEAR,
+  } from './actions';
+  
+  const initialState = {
+    display: '0',
+    expression: '',
+  };
+  
   // Define operators array at the top
   const operators = ['+', '-', '*', '/'];
   
