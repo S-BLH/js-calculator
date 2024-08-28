@@ -10,19 +10,16 @@ const initialState = {
 // Define operators array at the top
 const operators = ['+', '-', '*', '/'];
 
-const cleanInput = (input) => {
-  // Replace multiple operators with the last one, preserving negative numbers
-  return input
+const cleanInput = (input) => 
+  input
     .replace(/([+\-*/])\s*-/g, '$1 -')
     .replace(/([+\-*/])\s*([+*/])/g, '$2');
-};
 
 const calculateResult = (expression) => {
   try {
-    // Clean the input before evaluation
     const cleanedExpression = cleanInput(expression);
     // Use Function constructor for safe evaluation
-    return new Function('return ' + cleanedExpression)().toString();
+    return new Function(`return ${cleanedExpression}`)().toString();
   } catch {
     return 'Error';
   }
@@ -31,7 +28,6 @@ const calculateResult = (expression) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_DIGIT:
-      // Handle digit addition
       const newDigit = action.payload;
       return {
         ...state,
@@ -43,45 +39,39 @@ const reducer = (state = initialState, action) => {
       const lastChar = state.expression.slice(-1);
 
       if (operators.includes(lastChar)) {
-        // If the last character is an operator, replace it with the new one
         if (action.payload === '-') {
-          // Special handling for negative sign if lastChar is an operator or expression is empty
           return {
             ...state,
-            expression: state.expression + ' ' + action.payload,
+            expression: `${state.expression} ${action.payload}`,
           };
         } else {
           return {
             ...state,
-            expression: state.expression.slice(0, -1) + ' ' + action.payload + ' ',
+            expression: `${state.expression.slice(0, -1)} ${action.payload} `,
           };
         }
       }
 
-      // Append the operator if it's not consecutive
       return {
         ...state,
-        expression: state.expression + ' ' + action.payload + ' ',
+        expression: `${state.expression} ${action.payload} `,
       };
     }
 
     case SET_DECIMAL:
-      // Add decimal point if there isn't one already in the current number
       const lastNumber = state.expression.split(/[\+\-\*\/]/).pop();
       if (!lastNumber.includes('.')) {
         return {
           ...state,
-          display: state.display + '.',
-          expression: state.expression + '.',
+          display: `${state.display}.`,
+          expression: `${state.expression}.`,
         };
       }
       return state;
 
     case CALCULATE: {
-      // Use the cleanInput function to handle multiple operators and negative numbers
       const cleanedExpression = cleanInput(state.expression);
 
-      // Handle cases where there's a trailing operator
       const finalExpression = operators.includes(cleanedExpression.slice(-1))
         ? cleanedExpression.slice(0, -1)
         : cleanedExpression;
