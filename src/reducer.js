@@ -1,9 +1,10 @@
 // src/reducer.js
+
 import { ADD_DIGIT, ADD_OPERATOR, SET_DECIMAL, CALCULATE, CLEAR } from './actions';
 
 const initialState = {
   display: '0',
-  expression: ''
+  expression: '',
 };
 
 // Define operators array at the top
@@ -11,8 +12,9 @@ const operators = ['+', '-', '*', '/'];
 
 const cleanInput = (input) => {
   // Replace multiple operators with the last one, preserving negative numbers
-  return input.replace(/([+\-*/])\s*-/g, '$1 -')
-              .replace(/([+\-*/])\s*([+*/])/g, '$2');
+  return input
+    .replace(/([+\-*/])\s*-/g, '$1 -')
+    .replace(/([+\-*/])\s*([+*/])/g, '$2');
 };
 
 const calculateResult = (expression) => {
@@ -34,10 +36,10 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         display: state.display === '0' ? newDigit : state.display + newDigit,
-        expression: state.expression === '0' ? newDigit : state.expression + newDigit
+        expression: state.expression === '0' ? newDigit : state.expression + newDigit,
       };
 
-    case ADD_OPERATOR:
+    case ADD_OPERATOR: {
       const lastChar = state.expression.slice(-1);
 
       if (operators.includes(lastChar)) {
@@ -46,12 +48,12 @@ const reducer = (state = initialState, action) => {
           // Special handling for negative sign if lastChar is an operator or expression is empty
           return {
             ...state,
-            expression: state.expression + ' ' + action.payload
+            expression: state.expression + ' ' + action.payload,
           };
         } else {
           return {
             ...state,
-            expression: state.expression.slice(0, -1) + ' ' + action.payload + ' '
+            expression: state.expression.slice(0, -1) + ' ' + action.payload + ' ',
           };
         }
       }
@@ -59,8 +61,9 @@ const reducer = (state = initialState, action) => {
       // Append the operator if it's not consecutive
       return {
         ...state,
-        expression: state.expression + ' ' + action.payload + ' '
+        expression: state.expression + ' ' + action.payload + ' ',
       };
+    }
 
     case SET_DECIMAL:
       // Add decimal point if there isn't one already in the current number
@@ -69,12 +72,12 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           display: state.display + '.',
-          expression: state.expression + '.'
+          expression: state.expression + '.',
         };
       }
       return state;
 
-    case CALCULATE:
+    case CALCULATE: {
       // Use the cleanInput function to handle multiple operators and negative numbers
       const cleanedExpression = cleanInput(state.expression);
 
@@ -88,8 +91,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         display: result,
-        expression: result
+        expression: result,
       };
+    }
 
     case CLEAR:
       return initialState;
