@@ -16,7 +16,7 @@ import {
   // Define operators array at the top
   const operators = ['+', '-', '*', '/'];
   
-  const cleanInput = (input) => 
+  const cleanInput = (input) =>
     input
       .replace(/([+\-*/])\s*-/g, '$1 -')
       .replace(/([+\-*/])\s*([+*/])/g, '$2');
