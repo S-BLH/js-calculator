@@ -44,12 +44,12 @@ const reducer = (state = initialState, action) => {
             ...state,
             expression: `${state.expression} ${action.payload}`,
           };
-        } else {
-          return {
-            ...state,
-            expression: `${state.expression.slice(0, -1)} ${action.payload} `,
-          };
         }
+
+        return {
+          ...state,
+          expression: `${state.expression.slice(0, -1)} ${action.payload} `,
+        };
       }
 
       return {
