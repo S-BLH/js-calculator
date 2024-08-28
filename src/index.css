@@ -53,9 +53,9 @@ button:active {
   grid-column: span 2;
 }
 
-#divide, 
-#multiply, 
-#subtract, 
+#divide,
+#multiply,
+#subtract,
 #add {
   background-color: #011d05;
 }
