@@ -27,13 +27,14 @@ const calculateResult = (expression) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_DIGIT:
+    case ADD_DIGIT: {
       const newDigit = action.payload;
       return {
         ...state,
         display: state.display === '0' ? newDigit : state.display + newDigit,
         expression: state.expression === '0' ? newDigit : state.expression + newDigit,
       };
+    }
 
     case ADD_OPERATOR: {
       const lastChar = state.expression.slice(-1);
@@ -58,7 +59,7 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    case SET_DECIMAL:
+    case SET_DECIMAL: {
       const lastNumber = state.expression.split(/[\+\-\*\/]/).pop();
       if (!lastNumber.includes('.')) {
         return {
@@ -68,6 +69,7 @@ const reducer = (state = initialState, action) => {
         };
       }
       return state;
+    }
 
     case CALCULATE: {
       const cleanedExpression = cleanInput(state.expression);
