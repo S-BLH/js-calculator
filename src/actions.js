@@ -1,4 +1,5 @@
- // src/actions.js
+// src/actions.js
+
 export const ADD_DIGIT = 'ADD_DIGIT';
 export const ADD_OPERATOR = 'ADD_OPERATOR';
 export const SET_DECIMAL = 'SET_DECIMAL';
