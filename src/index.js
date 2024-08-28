@@ -1,18 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';  // Changed from 'react-dom' to 'react-dom/client'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './App';
 import reducer from './reducer';
-import './index.css';  // Add this line to import the CSS
+import './index.css';
 
 const store = createStore(reducer);
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root'));  // Updated to use createRoot
+
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
+
+// Add this line to prevent linting errors
