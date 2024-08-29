@@ -1,24 +1,24 @@
 // src/reducer.js
 
 import {
-  ADD_DIGIT,
-  ADD_OPERATOR,
-  SET_DECIMAL,
-  CALCULATE,
-  CLEAR,
-} from './actions';
-const initialState = {
-  display: '0',
-  expression: '',
-};
-
+    ADD_DIGIT,
+    ADD_OPERATOR,
+    SET_DECIMAL,
+    CALCULATE,
+    CLEAR,
+  } from './actions';
+  
+  const initialState = {
+    display: '0',
+    expression: '',
+  };
+  
   // Define operators array at the top
   const operators = ['+', '-', '*', '/'];
   
-  const cleanInput = (input) =>
-    input
-      .replace(/([+\-*/])\s*-/g, '$1 -')
-      .replace(/([+\-*/])\s*([+*/])/g, '$2');
+  const cleanInput = (input) => input
+    .replace(/([+\-*/])\s*-/g, '$1 -')
+    .replace(/([+\-*/])\s*([+*/])/g, '$2');
   
   const calculateResult = (expression) => {
     try {
