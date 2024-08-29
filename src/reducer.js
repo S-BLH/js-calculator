@@ -32,7 +32,7 @@ const calculateResult = (expression) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-  case ADD_DIGIT: {
+    case ADD_DIGIT: {
       const newDigit = action.payload;
       return {
         ...state,
@@ -85,18 +85,18 @@ const reducer = (state = initialState, action) => {
 
       const result = calculateResult(finalExpression);
       return {
-          ...state,
-          display: result,
-          expression: result,
-        };
-      }
-  
-      case CLEAR:
-        return initialState;
-  
-      default:
-        return state;
+        ...state,
+        display: result,
+        expression: result,
+      };
     }
-  };
-  
-  export default reducer;
+
+    case CLEAR:
+      return initialState;
+
+    default:
+      return state;
+  }
+};
+
+export default reducer;
